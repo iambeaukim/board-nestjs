@@ -1,12 +1,13 @@
-import { prop, modelOptions } from "@typegoose/typegoose";
+import { prop, modelOptions } from '@typegoose/typegoose';
 import { v4 as uuidv4 } from 'uuid';
 
 @modelOptions({ schemaOptions: { timestamps: true, versionKey: false } })
 export class Article {
-
-  @prop({default: function genUUID() {
-    return uuidv4()
-  }})
+  @prop({
+    default: function genUUID() {
+      return uuidv4();
+    },
+  })
   _id?: string;
 
   @prop()
@@ -20,8 +21,7 @@ export class Article {
 
   @prop()
   updatedAt: Date;
-  
-  @prop({default: true})
+
+  @prop({ default: true })
   isActive: boolean;
-  
 }

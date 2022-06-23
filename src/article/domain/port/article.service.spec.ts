@@ -28,5 +28,4 @@ describe('ArticleService', () => {
       expect(result.isActive).toBe(true);
     });
   });
-
 });
