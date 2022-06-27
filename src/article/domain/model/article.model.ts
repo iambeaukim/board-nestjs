@@ -1,13 +1,9 @@
 import { prop, modelOptions } from '@typegoose/typegoose';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 @modelOptions({ schemaOptions: { timestamps: true, versionKey: false } })
 export class Article {
-  @prop({
-    default: function genUUID() {
-      return uuidv4();
-    },
-  })
+  @prop()
   _id?: string;
 
   @prop()
@@ -24,4 +20,8 @@ export class Article {
 
   @prop({ default: true })
   isActive: boolean;
+
+  createId() {
+    this._id = uuid();
+  }
 }

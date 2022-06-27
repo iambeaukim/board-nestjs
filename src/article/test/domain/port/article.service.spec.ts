@@ -5,6 +5,7 @@ import { ArticleRepository } from '../../../domain/port/article.repository';
 import { ArticleMongoRepository } from '../../../adapter/db/articleMongo.repository';
 import { TypegooseModule } from 'nestjs-typegoose';
 import * as XLSX from 'xlsx';
+import { v4 as uuid } from 'uuid';
 
 describe('ArticleService', () => {
   let service: ArticleService;
@@ -26,7 +27,11 @@ describe('ArticleService', () => {
 
     service = module.get<ArticleService>(ArticleService);
     repository = module.get<ArticleRepository>(ArticleRepository);
+    article1 = new Article();
+    article2 = new Article();
+  });
 
+  afterEach(async () => {
     article1 = new Article();
     article2 = new Article();
   });
@@ -34,6 +39,7 @@ describe('ArticleService', () => {
   describe('게시물 등록', () => {
     it('게시물을 생성하고, 생성 된 게시물 return', async () => {
       //Given
+      article1._id = uuid();
       article1.title = '제목';
       article1.content = '본문';
 
@@ -47,7 +53,9 @@ describe('ArticleService', () => {
 
       //Then
       expect(repositorySaveSpy).toHaveBeenCalledWith(article1); // 모의 함수가 특정 인수로 호출되었는지 확인하는 데 사용
-      expect(result).toEqual(article1);
+      expect(result.id).toBe(article1._id);
+      expect(result.title).toEqual(article1.title);
+      expect(result.content).toEqual(article1.content);
     });
   });
 

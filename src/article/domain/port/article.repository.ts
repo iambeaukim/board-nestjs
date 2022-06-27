@@ -11,4 +11,4 @@ export interface ArticleRepository {
  * 해결 방법 : Interface 를 string/symbol 로 대체한다.
  * IOC 컨테이너가 symbol 키맵을 이용하여 class 정보를 관리하는 것으로 생각된다.
  * */
-export const ArticleRepository = Symbol('ArticleRepository'); //TODO : Symbol 용도 관련 R&D 필요
+export const ArticleRepository = Symbol('ArticleRepository');

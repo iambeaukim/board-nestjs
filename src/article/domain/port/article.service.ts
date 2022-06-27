@@ -6,13 +6,13 @@ import { Article } from '../model/article.model';
 
 @Injectable()
 export class ArticleService {
-  //TODO : 인터페이스 구현체 주입 관련 R&D 필요
   constructor(
     @Inject(ArticleRepository)
     private readonly articleRepository: ArticleRepository,
   ) {}
 
   async createArticle(article: Article) {
+    article.createId();
     const createdArticle = await this.articleRepository.save(article);
     return ArticleResponse.fromEntity(createdArticle);
   }
