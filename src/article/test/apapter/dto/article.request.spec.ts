@@ -8,8 +8,8 @@ describe('ArticleRequest', () => {
     request = new ArticleRequest();
   });
 
-  describe('request validation ', () => {
-    it('if title is empty throw error', async () => {
+  describe('request validation', () => {
+    it('if title is empty, throw error', async () => {
       //Given
       request.title = '';
       request.content = '본문';
