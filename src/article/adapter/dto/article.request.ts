@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
-import { Article } from 'src/article/domain/model/article.model';
+import { Article } from '../../domain/model/article.model';
 
 export class ArticleRequest {
   @IsNotEmpty()
