@@ -21,7 +21,7 @@ describe('ArticleMongoRepository', () => {
     repository = module.get<ArticleRepository>(ArticleRepository);
   });
 
-  describe('save', () => {
+  describe('게시물 저장', () => {
     it('게시물 저장 후 return', async () => {
       //Given
       const article = new Article();
@@ -38,7 +38,7 @@ describe('ArticleMongoRepository', () => {
     });
   });
 
-  describe('findAll', () => {
+  describe('게시물 목록 조회', () => {
     it('게시물 목록 조회 후 return', async () => {
       //Given
       const article1 = new Article();
