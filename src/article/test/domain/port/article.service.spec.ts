@@ -54,8 +54,8 @@ describe('ArticleService', () => {
       //Then
       expect(repositorySaveSpy).toHaveBeenCalledWith(article1); // 모의 함수가 특정 인수로 호출되었는지 확인하는 데 사용
       expect(result.id).toBe(article1._id);
-      expect(result.title).toEqual(article1.title);
-      expect(result.content).toEqual(article1.content);
+      expect(result.title).toBe(article1.title);
+      expect(result.content).toBe(article1.content);
     });
   });
 
@@ -84,7 +84,7 @@ describe('ArticleService', () => {
       const sheet = workbook.Sheets[sheetName];
 
       expect(repositoryFindAllSpy).toBeCalled();
-      expect(sheetName).toEqual('게시물');
+      expect(sheetName).toBe('게시물');
       expect(XLSX.utils.sheet_to_json(sheet)).toEqual(existingArticles);
     });
   });

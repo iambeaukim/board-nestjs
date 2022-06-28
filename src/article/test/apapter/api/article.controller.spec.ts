@@ -60,8 +60,10 @@ describe('ArticleController', () => {
         .spyOn(service, 'downloadExcel')
         .mockResolvedValue(buffer);
 
+      //When
       await controller.downloadExcel(response);
 
+      //Then
       expect(serviceDownloadExcelSpy).toBeCalledTimes(1);
       expect(response.statusCode).toEqual(200);
       expect(buffer).toEqual(response._getData());

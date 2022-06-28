@@ -4,7 +4,7 @@ import { validate } from 'class-validator';
 describe('ArticleRequest', () => {
   let request: ArticleRequest;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     request = new ArticleRequest();
   });
 
@@ -20,6 +20,8 @@ describe('ArticleRequest', () => {
       //Then
       expect(errors.length).not.toBe(0);
       expect(JSON.stringify(errors)).toContain('title should not be empty');
+
+      //TODO 정상인 경우
     });
   });
 
