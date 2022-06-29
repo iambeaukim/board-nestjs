@@ -1,8 +1,10 @@
 import { Article } from '../model/article.model';
+import { ReturnModelType } from '@typegoose/typegoose';
 
 export interface ArticleRepository {
   save(article: Article): Promise<Article>;
   findAll(): Promise<Article[] | null>;
+  getModel(): ReturnModelType<typeof Article>;
 }
 
 /* Typescript 사용 시 Interface 를 활용하여 의존성 주입

@@ -22,4 +22,8 @@ export class ArticleMongoRepository implements ArticleRepository {
   async findAll(): Promise<Nullable<Article[]>> {
     return await this.articleModel.find().exec();
   }
+
+  getModel(): ReturnModelType<typeof Article> {
+    return this.articleModel;
+  }
 }
