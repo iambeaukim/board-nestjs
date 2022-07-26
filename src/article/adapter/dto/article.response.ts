@@ -1,4 +1,5 @@
 import { Article } from '../../domain/model/article.model';
+import {ArticleType} from "../../common/article.type";
 
 export class ArticleResponse {
   id: string;
@@ -6,6 +7,8 @@ export class ArticleResponse {
   title: string;
 
   content: string;
+
+  type: ArticleType;
 
   createdDate: Date;
 
@@ -18,6 +21,7 @@ export class ArticleResponse {
     response.id = entity._id;
     response.title = entity.title;
     response.content = entity.content;
+    response.type = entity.type;
     response.createdDate = entity.createdAt;
     response.updatedDate = entity.updatedAt;
     response.isActive = entity.isActive;

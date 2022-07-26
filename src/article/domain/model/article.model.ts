@@ -1,5 +1,6 @@
-import { prop, modelOptions } from '@typegoose/typegoose';
+import { modelOptions, prop } from '@typegoose/typegoose';
 import { v4 as uuid } from 'uuid';
+import { ArticleType } from '../../common/article.type';
 
 @modelOptions({ schemaOptions: { timestamps: true, versionKey: false } })
 export class Article {
@@ -11,6 +12,9 @@ export class Article {
 
   @prop()
   content: string;
+
+  @prop({ enum: ArticleType, type: String })
+  type: ArticleType;
 
   @prop()
   createdAt: Date;
