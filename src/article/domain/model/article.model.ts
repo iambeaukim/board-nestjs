@@ -25,7 +25,7 @@ export class Article {
   @prop({ default: true })
   isActive: boolean;
 
-  createId() {
+  createUUId() {
     this._id = uuid();
   }
 }

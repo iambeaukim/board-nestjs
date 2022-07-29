@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ArticleRepository } from './article.repository';
 import { Article } from '../model/article.model';
 import { ArticleService } from './article.service';
+import { ArticleResponse } from '../../adapter/dto/article.response';
+import * as XLSX from 'xlsx';
 
 @Injectable()
 export class ReportArticleService implements ArticleService {
@@ -11,12 +13,25 @@ export class ReportArticleService implements ArticleService {
   ) {}
 
   async createArticle(article: Article): Promise<Article> {
-    console.log('Create Report Article');
-    return article;
+    article.createUUId();
+    return await this.articleRepository.save(article);
   }
 
   async downloadExcel() {
-    console.log('Download Report Article');
+    const articles = await this.getArticles();
+    const response = articles.map(data => ArticleResponse.fromEntity(data));
+
+    // 1. workbook 생성
+    const workbook = XLSX.utils.book_new();
+
+    // 2. sheet 생성
+    const worksheet = XLSX.utils.json_to_sheet(response);
+
+    // 3. 새로만든 sheet에 이름을 주고 workbook에 삽입
+    XLSX.utils.book_append_sheet(workbook, worksheet, '게시물');
+
+    // 4. 엑셀파일 생성
+    return XLSX.write(workbook, { bookType: 'xlsx', type: 'base64' });
   }
 
   async getArticles(): Promise<Article[] | null> {

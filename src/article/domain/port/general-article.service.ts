@@ -13,7 +13,7 @@ export class GeneralArticleService implements ArticleService {
   ) {}
 
   async createArticle(article: Article): Promise<Article> {
-    article.createId();
+    article.createUUId();
     return await this.articleRepository.save(article);
   }
 
