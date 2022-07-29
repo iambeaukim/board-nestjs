@@ -1,6 +1,6 @@
-import {IsEnum, IsNotEmpty, IsOptional} from 'class-validator';
-import {Article} from '../../domain/model/article.model';
-import {ArticleType} from "../../common/article.type";
+import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
+import { Article } from '../../domain/model/article.model';
+import { ArticleType } from '../../common/article.type';
 
 export class ArticleRequest {
   @IsNotEmpty()

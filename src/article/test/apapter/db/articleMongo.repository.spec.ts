@@ -9,13 +9,8 @@ describe('ArticleMongoRepository', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypegooseModule.forRoot('mongodb://localhost:27017/board'),
-        TypegooseModule.forFeature([Article]),
-      ],
-      providers: [
-        { provide: ArticleRepository, useClass: ArticleMongoRepository },
-      ],
+      imports: [TypegooseModule.forRoot('mongodb://localhost:27017/board'), TypegooseModule.forFeature([Article])],
+      providers: [{ provide: ArticleRepository, useClass: ArticleMongoRepository }],
     }).compile();
 
     repository = module.get<ArticleRepository>(ArticleRepository);

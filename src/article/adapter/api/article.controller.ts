@@ -1,40 +1,45 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Header,
-  HttpStatus,
-  Logger,
-  Post,
-  Res,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Get, Header, HttpException, HttpStatus, Logger, Post, Query, Res, UseInterceptors } from '@nestjs/common';
 import { ResponseInterceptor } from '../../../response.interceptor';
-import { ArticleService } from '../../domain/port/article.service';
 import { ArticleRequest } from '../dto/article.request';
+import { ArticleResponse } from '../dto/article.response';
+import { ArticleService, FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from '../../domain/port/article.service';
+import { ModuleRef } from '@nestjs/core';
+import { ArticleType } from '../../common/article.type';
 
-@Controller('articles')
+@Controller('/articles')
 export class ArticleController {
   private readonly logger = new Logger(ArticleController.name);
 
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private moduleRef: ModuleRef) {}
 
   @UseInterceptors(ResponseInterceptor)
   @Post()
-  createArticle(@Body() request: ArticleRequest) {
+  async createArticle(@Body() request: ArticleRequest) {
     this.logger.debug(`Article: ${JSON.stringify(request)}`);
-    return this.articleService.createArticle(request.toEntity());
+    const articleService = this.moduleRef.get<ArticleService>(this.getServiceSymbol(request.type));
+
+    return ArticleResponse.fromEntity(await articleService.createArticle(request.toEntity()));
   }
 
   @Get('/excel')
-  @Header(
-    'Content-Type',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  )
+  @Header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
   @Header('Content-Disposition', 'attachment; filename=articles.xlsx')
-  async downloadExcel(@Res() response) {
-    response
-      .status(HttpStatus.OK)
-      .send(Buffer.from(await this.articleService.downloadExcel(), 'base64'));
+  async downloadExcel(@Res() response, @Query() type: ArticleType) {
+    const articleService = this.moduleRef.get<ArticleService>(this.getServiceSymbol(type));
+
+    response.status(HttpStatus.OK).send(Buffer.from(await articleService.downloadExcel(), 'base64'));
+  }
+
+  getServiceSymbol(type: ArticleType) {
+    switch (type) {
+      case ArticleType.GENERAL:
+        return GeneralArticleServiceSymbol;
+      case ArticleType.REPORT:
+        return ReportArticleServiceSymbol;
+      case ArticleType.FAQ:
+        return FaqArticleServiceSymbol;
+      default:
+        throw new HttpException('CONFLICT', HttpStatus.CONFLICT);
+    }
   }
 }

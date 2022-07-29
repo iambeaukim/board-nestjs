@@ -1,5 +1,5 @@
 import { Article } from '../../domain/model/article.model';
-import {ArticleType} from "../../common/article.type";
+import { ArticleType } from '../../common/article.type';
 
 export class ArticleResponse {
   id: string;
