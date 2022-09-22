@@ -1,8 +1,8 @@
-import { ArticleRepository } from '../../../domain/port/article.repository';
+import { ArticleRepository } from '../../../domain/repository/article.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { Article } from '../../../domain/model/article.model';
-import { ArticleMongoRepository } from '../../../adapter/db/articleMongo.repository';
+import { Article } from '../../../domain/entity/article.model';
+import { ArticleMongoRepository } from '../../../infra/mongo/articleMongo.repository';
 
 describe('ArticleMongoRepository', () => {
   let repository: ArticleRepository;

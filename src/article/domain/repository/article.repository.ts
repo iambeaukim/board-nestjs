@@ -1,4 +1,4 @@
-import { Article } from '../model/article.model';
+import { Article } from '../entity/article.model';
 import { ReturnModelType } from '@typegoose/typegoose';
 
 export interface ArticleRepository {

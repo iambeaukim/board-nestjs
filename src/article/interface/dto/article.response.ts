@@ -1,5 +1,5 @@
-import { Article } from '../../domain/model/article.model';
-import { ArticleType } from '../../common/article.type';
+import { Article } from '../../domain/entity/article.model';
+import { ArticleType } from '../../domain/enum/article.type';
 
 export class ArticleResponse {
   id: string;

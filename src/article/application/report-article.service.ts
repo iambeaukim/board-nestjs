@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ArticleRepository } from './article.repository';
-import { Article } from '../model/article.model';
+import { ArticleRepository } from '../domain/repository/article.repository';
+import { Article } from '../domain/entity/article.model';
 import { ArticleService } from './article.service';
-import { ArticleResponse } from '../../adapter/dto/article.response';
+import { ArticleResponse } from '../interface/dto/article.response';
 import * as XLSX from 'xlsx';
 
 @Injectable()

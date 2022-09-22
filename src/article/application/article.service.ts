@@ -1,4 +1,4 @@
-import { Article } from '../model/article.model';
+import { Article } from '../domain/entity/article.model';
 
 export interface ArticleService {
   createArticle(article: Article): Promise<Article>;

@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { Article } from './domain/model/article.model';
-import { ArticleController } from './adapter/api/article.controller';
-import { ArticleRepository } from './domain/port/article.repository';
-import { ArticleMongoRepository } from './adapter/db/articleMongo.repository';
-import { FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from './domain/port/article.service';
-import { ReportArticleService } from './domain/port/report-article.service';
-import { GeneralArticleService } from './domain/port/general-article.service';
-import { FaqArticleService } from './domain/port/faq-article.service';
+import { Article } from './domain/entity/article.model';
+import { ArticleController } from './interface/controller/article.controller';
+import { ArticleRepository } from './domain/repository/article.repository';
+import { ArticleMongoRepository } from './infra/mongo/articleMongo.repository';
+import { FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from './application/article.service';
+import { ReportArticleService } from './application/report-article.service';
+import { GeneralArticleService } from './application/general-article.service';
+import { FaqArticleService } from './application/faq-article.service';
 
 @Module({
   imports: [TypegooseModule.forFeature([Article])],

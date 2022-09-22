@@ -2,9 +2,9 @@ import { Body, Controller, Get, Header, HttpException, HttpStatus, Logger, Post,
 import { ResponseInterceptor } from '../../../response.interceptor';
 import { ArticleRequest } from '../dto/article.request';
 import { ArticleResponse } from '../dto/article.response';
-import { ArticleService, FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from '../../domain/port/article.service';
+import { ArticleService, FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from '../../application/article.service';
 import { ModuleRef } from '@nestjs/core';
-import { ArticleType } from '../../common/article.type';
+import { ArticleType } from '../../domain/enum/article.type';
 
 @Controller('/articles')
 export class ArticleController {

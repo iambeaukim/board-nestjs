@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { ReturnModelType } from '@typegoose/typegoose';
-import { Article } from '../../domain/model/article.model';
-import { ArticleRepository } from 'src/article/domain/port/article.repository';
+import { Article } from '../../domain/entity/article.model';
+import { ArticleRepository } from 'src/article/domain/repository/article.repository';
 
 type Nullable<T> = T | null;
 //type Optional<T> = T | null | undefined;

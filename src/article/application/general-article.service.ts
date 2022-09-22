@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as XLSX from 'xlsx';
-import { ArticleRepository } from './article.repository';
-import { Article } from '../model/article.model';
+import { ArticleRepository } from '../domain/repository/article.repository';
+import { Article } from '../domain/entity/article.model';
 import { ArticleService } from './article.service';
-import { ArticleResponse } from '../../adapter/dto/article.response';
+import { ArticleResponse } from '../interface/dto/article.response';
 
 @Injectable()
-export class FaqArticleService implements ArticleService {
+export class GeneralArticleService implements ArticleService {
   constructor(
     @Inject(ArticleRepository)
     private readonly articleRepository: ArticleRepository,

@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GeneralArticleService } from '../../../domain/port/general-article.service';
-import { ArticleController } from '../../../adapter/api/article.controller';
-import { ArticleRequest } from '../../../adapter/dto/article.request';
-import { ArticleResponse } from '../../../adapter/dto/article.response';
-import { ArticleRepository } from '../../../domain/port/article.repository';
-import { ArticleMongoRepository } from '../../../adapter/db/articleMongo.repository';
+import { GeneralArticleService } from '../../../application/general-article.service';
+import { ArticleController } from '../../../interface/controller/article.controller';
+import { ArticleRequest } from '../../../interface/dto/article.request';
+import { ArticleResponse } from '../../../interface/dto/article.response';
+import { ArticleRepository } from '../../../domain/repository/article.repository';
+import { ArticleMongoRepository } from '../../../infra/mongo/articleMongo.repository';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { Article } from '../../../domain/model/article.model';
+import { Article } from '../../../domain/entity/article.model';
 import * as httpMocks from 'node-mocks-http';
 
 describe('ArticleController', () => {

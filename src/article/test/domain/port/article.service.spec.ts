@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GeneralArticleService } from '../../../domain/port/general-article.service';
-import { Article } from '../../../domain/model/article.model';
-import { ArticleRepository } from '../../../domain/port/article.repository';
-import { ArticleMongoRepository } from '../../../adapter/db/articleMongo.repository';
+import { GeneralArticleService } from '../../../application/general-article.service';
+import { Article } from '../../../domain/entity/article.model';
+import { ArticleRepository } from '../../../domain/repository/article.repository';
+import { ArticleMongoRepository } from '../../../infra/mongo/articleMongo.repository';
 import { TypegooseModule } from 'nestjs-typegoose';
 import * as XLSX from 'xlsx';
 import { v4 as uuid } from 'uuid';

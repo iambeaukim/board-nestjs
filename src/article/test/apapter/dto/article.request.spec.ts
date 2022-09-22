@@ -1,4 +1,4 @@
-import { ArticleRequest } from '../../../adapter/dto/article.request';
+import { ArticleRequest } from '../../../interface/dto/article.request';
 import { validate } from 'class-validator';
 
 describe('ArticleRequest', () => {
