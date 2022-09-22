@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Header, HttpException, HttpStatus, Logger, Post, Query, Res, UseInterceptors } from '@nestjs/common';
-import { ResponseInterceptor } from '../../../response.interceptor';
+import { Body, Controller, Get, Header, HttpException, HttpStatus, Logger, Post, Query, Res } from '@nestjs/common';
 import { ArticleRequest } from '../dto/article.request';
 import { ArticleResponse } from '../dto/article.response';
 import { ArticleService, FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from '../../application/article.service';
 import { ModuleRef } from '@nestjs/core';
 import { ArticleType } from '../../domain/enum/article.type';
+import { BaseResponse } from '../../../global/common/response/base.response';
 
 @Controller('/articles')
 export class ArticleController {
@@ -12,13 +12,12 @@ export class ArticleController {
 
   constructor(private readonly moduleRef: ModuleRef) {}
 
-  @UseInterceptors(ResponseInterceptor)
   @Post()
-  async createArticle(@Body() request: ArticleRequest) {
+  async createArticle(@Body() request: ArticleRequest): Promise<BaseResponse<ArticleResponse>> {
     console.log('ArticleRequest : ' + JSON.stringify(request));
     const articleService = this.moduleRef.get<ArticleService>(this.getServiceSymbol(request.type));
 
-    return ArticleResponse.fromEntity(await articleService.createArticle(request.toEntity()));
+    return BaseResponse.successBaseResponse(ArticleResponse.fromEntity(await articleService.createArticle(request.toEntity())));
   }
 
   @Get('/excel')
