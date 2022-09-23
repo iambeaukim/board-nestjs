@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GeneralArticleService } from '../../../application/general-article.service';
+import { GeneralArticleService } from '../../../application/service/general-article.service';
 import { ArticleController } from '../../../interface/controller/article.controller';
-import { ArticleRequest } from '../../../interface/dto/article.request';
-import { ArticleResponse } from '../../../interface/dto/article.response';
+import { CreateArticleRequestDto } from '../../../interface/dto/create-article.request.dto';
+import { ArticleResponseDto } from '../../../interface/dto/article.response.dto';
 import { ArticleRepository } from '../../../domain/repository/article.repository';
-import { ArticleMongoRepository } from '../../../infra/mongo/articleMongo.repository';
+import { ArticleMongoRepository } from '../../../infra/mongo/article.mongo.repository';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { Article } from '../../../domain/entity/article.model';
 import * as httpMocks from 'node-mocks-http';
@@ -27,12 +27,12 @@ describe('ArticleController', () => {
   describe('게시물 등록 API', () => {
     it('게시물을 생성하고, 생성 된 게시물 return', async () => {
       //Given
-      const request = new ArticleRequest();
+      const request = new CreateArticleRequestDto();
       request.title = '제목';
       request.content = '본문';
 
       //jest.spyOn 으로 repository save 함수 호출을 모의하고, 이 모의된 함수는 mockResolvedValue 를 사용해서 모의 저장된 Article 반환
-      const serviceCreateSpy = jest.spyOn(service, 'createArticle').mockResolvedValue(ArticleResponse.fromEntity(request.toEntity()));
+      const serviceCreateSpy = jest.spyOn(service, 'createArticle').mockResolvedValue(ArticleResponseDto.fromEntity(request.toEntity()));
 
       //When
       const result = await controller.createArticle(request);

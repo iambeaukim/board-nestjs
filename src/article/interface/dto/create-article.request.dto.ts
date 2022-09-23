@@ -1,8 +1,8 @@
 import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
-import { Article } from '../../domain/entity/article.model';
 import { ArticleType } from '../../domain/enum/article.type';
+import { ArticleServiceDto } from '../../application/dto/article.service.dto';
 
-export class ArticleRequest {
+export class CreateArticleRequestDto {
   @IsNotEmpty()
   title: string;
 
@@ -13,8 +13,8 @@ export class ArticleRequest {
   @IsNotEmpty()
   type: ArticleType;
 
-  public toEntity() {
-    const article = new Article();
+  public toServiceDto(): ArticleServiceDto {
+    const article = new ArticleServiceDto();
     article.title = this.title;
     article.content = this.content;
     article.type = this.type;

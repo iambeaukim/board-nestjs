@@ -1,23 +1,23 @@
 import { Body, Controller, Get, Header, HttpException, HttpStatus, Logger, Post, Query, Res } from '@nestjs/common';
-import { ArticleRequest } from '../dto/article.request';
-import { ArticleResponse } from '../dto/article.response';
-import { ArticleService, FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from '../../application/article.service';
+import { CreateArticleRequestDto } from '../dto/create-article.request.dto';
+import { ArticleResponseDto } from '../dto/article.response.dto';
+import { ArticleService, FaqArticleServiceSymbol, GeneralArticleServiceSymbol, ReportArticleServiceSymbol } from '../../application/service/article.service';
 import { ModuleRef } from '@nestjs/core';
 import { ArticleType } from '../../domain/enum/article.type';
 import { BaseResponse } from '../../../global/common/response/base.response';
 
 @Controller('/articles')
 export class ArticleController {
-  private readonly logger = new Logger(ArticleController.name);
+  private readonly log = new Logger(ArticleController.name);
 
   constructor(private readonly moduleRef: ModuleRef) {}
 
   @Post()
-  async createArticle(@Body() request: ArticleRequest): Promise<BaseResponse<ArticleResponse>> {
-    console.log('ArticleRequest : ' + JSON.stringify(request));
+  async createArticle(@Body() request: CreateArticleRequestDto): Promise<BaseResponse<ArticleResponseDto>> {
+    this.log.debug('ArticleRequest : ' + JSON.stringify(request));
     const articleService = this.moduleRef.get<ArticleService>(this.getServiceSymbol(request.type));
 
-    return BaseResponse.successBaseResponse(ArticleResponse.fromEntity(await articleService.createArticle(request.toEntity())));
+    return BaseResponse.successBaseResponse(ArticleResponseDto.fromServiceDto(await articleService.createArticle(request.toServiceDto())));
   }
 
   @Get('/excel')

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ArticleRepository } from '../domain/repository/article.repository';
-import { Article } from '../domain/entity/article.model';
+import { ArticleRepository } from '../../domain/repository/article.repository';
+import { Article } from '../../domain/entity/article.model';
 import { ArticleService } from './article.service';
-import { ArticleResponse } from '../interface/dto/article.response';
 import * as XLSX from 'xlsx';
+import { ArticleServiceDto } from '../dto/article.service.dto';
 
 @Injectable()
 export class ReportArticleService implements ArticleService {
@@ -12,14 +12,15 @@ export class ReportArticleService implements ArticleService {
     private readonly articleRepository: ArticleRepository,
   ) {}
 
-  async createArticle(article: Article): Promise<Article> {
+  async createArticle(articleServiceDto: ArticleServiceDto): Promise<ArticleServiceDto> {
+    const article = articleServiceDto.toEntity();
     article.createUUId();
-    return await this.articleRepository.save(article);
+    return ArticleServiceDto.fromEntity(await this.articleRepository.save(article));
   }
 
   async downloadExcel() {
-    const articles = await this.getArticles();
-    const response = articles.map(data => ArticleResponse.fromEntity(data));
+    const articles = await this.getArticleDocuments();
+    const response = articles.map(data => ArticleServiceDto.fromEntity(data));
 
     // 1. workbook 생성
     const workbook = XLSX.utils.book_new();
@@ -34,7 +35,7 @@ export class ReportArticleService implements ArticleService {
     return XLSX.write(workbook, { bookType: 'xlsx', type: 'base64' });
   }
 
-  async getArticles(): Promise<Article[] | null> {
+  async getArticleDocuments(): Promise<Article[] | null> {
     return await this.articleRepository.findAll();
   }
 }

@@ -1,11 +1,11 @@
-import { ArticleRequest } from '../../../interface/dto/article.request';
+import { CreateArticleRequestDto } from '../../../interface/dto/create-article.request.dto';
 import { validate } from 'class-validator';
 
 describe('ArticleRequest', () => {
-  let request: ArticleRequest;
+  let request: CreateArticleRequestDto;
 
   beforeEach(async () => {
-    request = new ArticleRequest();
+    request = new CreateArticleRequestDto();
   });
 
   describe('request validation', () => {

@@ -1,9 +1,8 @@
-import { Article } from '../domain/entity/article.model';
+import { ArticleServiceDto } from '../dto/article.service.dto';
 
 export interface ArticleService {
-  createArticle(article: Article): Promise<Article>;
+  createArticle(articleServiceDto: ArticleServiceDto): Promise<ArticleServiceDto>;
   downloadExcel();
-  getArticles(): Promise<Article[] | null>;
 }
 
 export const GeneralArticleServiceSymbol = Symbol('GeneralArticleService');
