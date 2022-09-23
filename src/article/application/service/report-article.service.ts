@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ArticleRepository } from '../../domain/repository/article.repository';
+import { IArticleRepository } from '../../domain/repository/article.repository';
 import { Article } from '../../domain/entity/article.model';
 import { ArticleService } from './article.service';
 import * as XLSX from 'xlsx';
@@ -8,8 +8,8 @@ import { ArticleServiceDto } from '../dto/article.service.dto';
 @Injectable()
 export class ReportArticleService implements ArticleService {
   constructor(
-    @Inject(ArticleRepository)
-    private readonly articleRepository: ArticleRepository,
+    @Inject(IArticleRepository)
+    private readonly articleRepository: IArticleRepository,
   ) {}
 
   async createArticle(articleServiceDto: ArticleServiceDto): Promise<ArticleServiceDto> {
@@ -19,7 +19,7 @@ export class ReportArticleService implements ArticleService {
   }
 
   async downloadExcel() {
-    const articles = await this.getArticleDocuments();
+    const articles = await this.findArticles();
     const response = articles.map(data => ArticleServiceDto.fromEntity(data));
 
     // 1. workbook 생성
@@ -35,7 +35,7 @@ export class ReportArticleService implements ArticleService {
     return XLSX.write(workbook, { bookType: 'xlsx', type: 'base64' });
   }
 
-  async getArticleDocuments(): Promise<Article[] | null> {
+  async findArticles(): Promise<Article[] | null> {
     return await this.articleRepository.findAll();
   }
 }

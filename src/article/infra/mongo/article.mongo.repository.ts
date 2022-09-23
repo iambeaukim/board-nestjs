@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { Article } from '../../domain/entity/article.model';
-import { ArticleRepository } from 'src/article/domain/repository/article.repository';
+import { IArticleRepository } from 'src/article/domain/repository/article.repository';
 
 type Nullable<T> = T | null;
 //type Optional<T> = T | null | undefined;
 
 @Injectable()
-export class ArticleMongoRepository implements ArticleRepository {
+export class ArticleMongoRepository implements IArticleRepository {
   constructor(
     @InjectModel(Article)
     private readonly articleModel: ReturnModelType<typeof Article>,
@@ -21,9 +21,5 @@ export class ArticleMongoRepository implements ArticleRepository {
 
   async findAll(): Promise<Nullable<Article[]>> {
     return await this.articleModel.find().exec();
-  }
-
-  getModel(): ReturnModelType<typeof Article> {
-    return this.articleModel;
   }
 }

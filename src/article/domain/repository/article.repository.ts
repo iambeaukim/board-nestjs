@@ -1,10 +1,8 @@
 import { Article } from '../entity/article.model';
-import { ReturnModelType } from '@typegoose/typegoose';
 
-export interface ArticleRepository {
+export interface IArticleRepository {
   save(article: Article): Promise<Article>;
   findAll(): Promise<Article[] | null>;
-  getModel(): ReturnModelType<typeof Article>;
 }
 
-export const ArticleRepository = Symbol('ArticleRepository');
+export const IArticleRepository = Symbol('IArticleRepository');
