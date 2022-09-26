@@ -1,19 +1,19 @@
-import { ArticleRepository } from '../../../domain/repository/article.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { Article } from '../../../domain/entity/article.model';
 import { ArticleMongoRepository } from '../../../infra/mongo/article.mongo.repository';
+import { IArticleRepository } from '../../../domain/repository/article.repository';
 
 describe('ArticleMongoRepository', () => {
-  let repository: ArticleRepository;
+  let repository: IArticleRepository;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [TypegooseModule.forRoot('mongodb://localhost:27017/board'), TypegooseModule.forFeature([Article])],
-      providers: [{ provide: ArticleRepository, useClass: ArticleMongoRepository }],
+      providers: [{ provide: IArticleRepository, useClass: ArticleMongoRepository }],
     }).compile();
 
-    repository = module.get<ArticleRepository>(ArticleRepository);
+    repository = module.get<IArticleRepository>(IArticleRepository);
   });
 
   describe('게시물 저장', () => {
