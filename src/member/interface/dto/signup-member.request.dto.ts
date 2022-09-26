@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { MemberServiceDto } from '../../application/dto/member.service.dto';
 
-export class SignupMemberRequest {
+export class SignupMemberRequestDto {
   @IsEmail()
   @IsNotEmpty()
   loginId: string;

@@ -16,6 +16,7 @@ import { MemberModule } from './member/member.module';
       database: 'nestjs_study',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: false,
+      logging: true,
     }),
     ArticleModule,
     MemberModule,

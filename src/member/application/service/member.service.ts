@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { MemberServiceDto } from '../dto/member.service.dto';
-import { IMemberRepository } from '../../domain/repository/member.repository';
+import { ICommandMemberRepository } from '../../domain/repository/command-member.repository';
 
 @Injectable()
 export class MemberService {
   constructor(
-    @Inject('IMemberRepository')
-    private memberRepository: IMemberRepository,
+    @Inject('ICommandMemberRepository')
+    private memberRepository: ICommandMemberRepository,
   ) {}
 
   async signup(memberServiceDto: MemberServiceDto): Promise<MemberServiceDto> {

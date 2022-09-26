@@ -1,4 +1,4 @@
-export class MemberResponse {
+export class MemberResponseDto {
   loginId: string;
 
   password: string;
