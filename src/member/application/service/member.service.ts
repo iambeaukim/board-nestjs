@@ -1,15 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { MemberServiceDto } from '../dto/member.service.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Member } from '../../domain/entity/member.entity';
-import { Repository } from 'typeorm';
+import { MemberMysqlRepository } from '../../infra/mysql/member.mysql.repository';
 
 @Injectable()
 export class MemberService {
-  constructor(
-    @InjectRepository(Member)
-    private memberRepository: Repository<Member>,
-  ) {}
+  constructor(private memberRepository: MemberMysqlRepository) {}
 
   async signup(memberServiceDto: MemberServiceDto): Promise<MemberServiceDto> {
     await this.memberRepository.save(memberServiceDto.toEntity());
