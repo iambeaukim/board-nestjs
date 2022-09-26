@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { MemberController } from './interface/controller/member.controller';
 import { MemberService } from './application/service/member.service';
 import { MemberMysqlRepository } from './infra/mysql/member.mysql.repository';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MemberMysqlRepository])],
   controllers: [MemberController],
-  providers: [MemberService],
+  providers: [
+    MemberService,
+    { provide: 'IMemberRepository', useFactory: connection => connection.getCustomRepository(MemberMysqlRepository), inject: [Connection] },
+  ],
 })
 export class MemberModule {}
