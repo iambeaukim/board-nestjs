@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Inject, Logger, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Logger, Post, Query } from '@nestjs/common';
 import { SignupMemberRequestDto } from '../dto/signup-member.request.dto';
 import { MemberResponseDto } from '../dto/member.response.dto';
-import { BaseResponse } from '../../../global/common/response/base.response';
+import { BaseResponse } from '../../../global/common/dto/base.response';
 import { MemberService } from '../../application/service/member.service';
+
+import { SearchMemberRequestDto } from '../dto/search-member.request.dto';
 import { IReadMemberRepository } from '../../domain/repository/read/read-member.repository';
 
 @Controller('/members')
@@ -23,7 +25,7 @@ export class MemberController {
   }
 
   @Get('/')
-  async getMembers(): Promise<BaseResponse<MemberResponseDto[]>> {
-    return BaseResponse.successBaseResponse(await this.readMemberRepository.getMembers());
+  async getMembers(@Query() param: SearchMemberRequestDto): Promise<BaseResponse<MemberResponseDto[]>> {
+    return BaseResponse.successBaseResponse(await this.readMemberRepository.getMembers(param));
   }
 }
