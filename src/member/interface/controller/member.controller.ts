@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Logger, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common';
 import { SignupMemberRequestDto } from '../dto/signup-member.request.dto';
 import { MemberResponseDto } from '../dto/member.response.dto';
 import { BaseResponse } from '../../../global/common/dto/base.response';
@@ -9,8 +9,6 @@ import { IReadMemberRepository } from '../../domain/repository/read/read-member.
 
 @Controller('/members')
 export class MemberController {
-  private readonly logger = new Logger(MemberController.name);
-
   constructor(
     private readonly memberService: MemberService,
 
@@ -20,8 +18,8 @@ export class MemberController {
 
   @Post('/member')
   async signup(@Body() request: SignupMemberRequestDto): Promise<BaseResponse<MemberResponseDto>> {
-    this.logger.debug(JSON.stringify(request));
-    return BaseResponse.successBaseResponse(await this.memberService.signup(request.toServiceDto()));
+    const result = await this.memberService.signup(request.toServiceDto());
+    return BaseResponse.successBaseResponse(MemberResponseDto.fromServiceDto(result));
   }
 
   @Get('/')

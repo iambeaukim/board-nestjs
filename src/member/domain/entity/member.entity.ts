@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from '../../../global/common/domain/base.entity';
 
 @Entity()
-export class Member {
+export class Member extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -13,12 +14,6 @@ export class Member {
 
   @Column({ name: 'nickname' })
   nickname: string;
-
-  @Column({ name: 'created_at' })
-  createdAt: Date;
-
-  @Column({ name: 'updated_at' })
-  updatedAt: Date;
 
   @Column({ name: 'is_active' })
   isActive: boolean;

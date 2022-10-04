@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { MemberServiceDto } from '../dto/member.service.dto';
 import { ICommandMemberRepository } from '../../domain/repository/command-member.repository';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
-import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class MemberService {
@@ -13,11 +12,12 @@ export class MemberService {
 
   @Transactional()
   async signup(memberServiceDto: MemberServiceDto): Promise<MemberServiceDto> {
-    const memberEntity = memberServiceDto.toEntity();
+    const member = memberServiceDto.toEntity();
 
-    if (await this.memberRepository.existByLoginId(memberEntity.loginId)) throw new HttpException('duplicated loginId', HttpStatus.CONFLICT);
+    if (await this.memberRepository.existByLoginId(member.loginId)) throw new HttpException('duplicated loginId', HttpStatus.CONFLICT);
 
-    await this.memberRepository.save(memberEntity);
-    return plainToInstance(MemberServiceDto, memberEntity);
+    await this.memberRepository.save(member);
+
+    return MemberServiceDto.fromEntity(member);
   }
 }
