@@ -1,11 +1,10 @@
 import { modelOptions, prop } from '@typegoose/typegoose';
-import { v4 as uuid } from 'uuid';
 import { ArticleType } from '../enum/article.type';
+import { ObjectId } from 'mongoose';
 
 @modelOptions({ schemaOptions: { timestamps: true, versionKey: false } })
 export class Article {
-  @prop()
-  _id?: string;
+  _id!: ObjectId;
 
   @prop()
   title: string;
@@ -24,8 +23,4 @@ export class Article {
 
   @prop({ default: true })
   isActive: boolean;
-
-  createUUId() {
-    this._id = uuid();
-  }
 }

@@ -1,8 +1,9 @@
 import { ArticleType } from '../../domain/enum/article.type';
 import { Article } from '../../domain/entity/article.model';
+import { ObjectId } from 'mongoose';
 
 export class ArticleServiceDto {
-  id: string;
+  id: ObjectId;
 
   title: string;
 

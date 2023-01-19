@@ -14,7 +14,6 @@ export class FaqArticleService implements ArticleService {
 
   async createArticle(articleServiceDto: ArticleServiceDto): Promise<ArticleServiceDto> {
     const article = articleServiceDto.toEntity();
-    article.createUUId();
     return ArticleServiceDto.fromEntity(await this.articleRepository.save(article));
   }
 

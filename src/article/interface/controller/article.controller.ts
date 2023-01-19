@@ -6,7 +6,6 @@ import { ModuleRef } from '@nestjs/core';
 import { ArticleType } from '../../domain/enum/article.type';
 import { BaseResponse } from '../../../global/common/dto/base.response';
 import { IReadArticleRepository } from '../../domain/repository/read/read-article.repository';
-import { IArticleRepository } from '../../domain/repository/article.repository';
 
 @Controller('/articles')
 export class ArticleController {

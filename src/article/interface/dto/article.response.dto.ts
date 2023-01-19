@@ -1,9 +1,9 @@
-import { Article } from '../../domain/entity/article.model';
 import { ArticleType } from '../../domain/enum/article.type';
 import { ArticleServiceDto } from '../../application/dto/article.service.dto';
+import { ObjectId } from 'mongoose';
 
 export class ArticleResponseDto {
-  id: string;
+  id: ObjectId;
 
   title: string;
 
